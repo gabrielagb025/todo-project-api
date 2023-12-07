@@ -4,7 +4,7 @@ const express = require('express');
 const logger = require('morgan');
 const createError = require('http-errors');
 const { StatusCodes } = require('http-status-codes');
-
+const cors = require('cors');
 
 /* -- DATABASE CONNECTION -- */
 
@@ -13,6 +13,10 @@ require('./config/db.config');
 /* -- APP INSTANCE -- */
 
 const app = express();
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || ['http://localhost:5173', 'http://127.0.0.1:5173']
+}))
+app.use(logger('dev'));
 app.use(express.json());
 
 /* -- ROUTES --*/
